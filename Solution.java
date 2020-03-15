@@ -36,13 +36,11 @@ class Solution {
 		
 		String longestCommonPrefix = "";
 		
-		for(int i=0;i<str.length();i++){
-			for(int j=str.length();j>i;j--){
-				String s =str.substring(i, j);
-				if(Contains(list,s) && longestCommonPrefix.length()<s.length()){
-					longestCommonPrefix = s;
-					if(longestCommonPrefix.length() == str.length()) return longestCommonPrefix;
-				}
+		for(int j=str.length();j>0;j--){
+			String s =str.substring(0, j);
+			if(Contains(list,s) && longestCommonPrefix.length()<s.length()){
+				longestCommonPrefix = s;
+				if(longestCommonPrefix.length() == str.length()) return longestCommonPrefix;
 			}
 		}
         return longestCommonPrefix;
