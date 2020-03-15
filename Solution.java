@@ -34,16 +34,13 @@ class Solution {
 		list.sort(Comparator.comparingInt(String::length));
 		String str = list.get(0);
 		
-		String longestCommonPrefix = "";
-		
 		for(int j=str.length();j>0;j--){
 			String s =str.substring(0, j);
-			if(Contains(list,s) && longestCommonPrefix.length()<s.length()){
-				longestCommonPrefix = s;
-				if(longestCommonPrefix.length() == str.length()) return longestCommonPrefix;
+			if(Contains(list,s)){
+				return s;
 			}
 		}
-        return longestCommonPrefix;
+        return "";
     }
 	private  boolean Contains(List<String> list,String s){
 		for(String str:list){
@@ -51,6 +48,5 @@ class Solution {
 		}
 		return true;
 	}
-
 }
 
