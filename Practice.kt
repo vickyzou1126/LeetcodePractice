@@ -1,8 +1,7 @@
 import kotlin.math.abs
 
 fun main(args: Array<String>) {
-    var nums:IntArray= intArrayOf(1,2,5,10,11)
-    println(threeSumClosest(nums,12))
+    isValid("({})")
 }
 /*
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
@@ -87,4 +86,38 @@ fun threeSumClosest(nums: IntArray, target: Int): Int {
         }
     }
     return res
+}
+
+/*
+Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ */
+
+fun isValid(s: String): Boolean {
+    var chars  = charArrayOf( '(', ')', '{', '}', '[' , ']')
+    var newString :String=s.filter { x->chars.contains(x) }
+
+    var len=newString.length
+    if(len%2 ==1) return false;
+    var newStrings=""
+    var temp: Char = ' '
+    for(c in newString){
+        when (c) {
+            '(' -> temp = 'a'
+            ')' -> temp = 'A'
+            '{' -> temp = 'b'
+            '}' -> temp = 'B'
+            '[' -> temp = 'c'
+            ']' -> temp = 'C'
+        }
+        if(temp.isUpperCase()){
+            var index = newStrings.lastIndexOf(temp.toLowerCase())
+            if(index <0  || index != newStrings.length-1)return false
+            newStrings=newStrings.substring(0,newStrings.length-1)
+        }else if(newStrings.length>len/2){
+            return false
+        }else{
+            newStrings += temp
+        }
+    }
+    return newStrings.length==0
 }
