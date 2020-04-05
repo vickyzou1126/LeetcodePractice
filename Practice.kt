@@ -1,7 +1,8 @@
 import kotlin.math.abs
 
 fun main(args: Array<String>) {
-    isValid("({})")
+    var res = findSubstring("barfoothefoobarman", arrayOf("foo","bar"))
+    println(res)
 }
 /*
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
@@ -120,4 +121,50 @@ fun isValid(s: String): Boolean {
         }
     }
     return newStrings.length==0
+}
+
+/*
+You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+ */
+fun findSubstring(s: String, words: Array<String>): List<Int> {
+    var index = listOf<Int>().toMutableList()
+    if(words.size ==0 || s.length==0) return index
+    var times = hashMapOf<String,Int>()
+    for(word in words){
+        var value = times.get(word)
+        times[word]= (value?:0) + 1
+    }
+
+    var num = words[0].length;
+    var total = words.size * num;
+
+    for (i in 0..s.length - total) {
+        for(j in i..s.length-total step total){
+            if(!index.contains(j)){
+                var temp = s.substring(j, j + total)
+                if(ContainAll(times,temp,num)){
+                    print("add in for ${temp} \n")
+                    index.add(j)
+                }
+            }
+        }
+    }
+    return index
+}
+fun ContainAll(times: HashMap<String,Int>,sentence:String,num:Int):Boolean{
+   // println("sentence is ${sentence} and times is ${times}")
+    var temp_times = HashMap(times)
+    var i=0;
+    while(i+num <= sentence.length){
+        var word:String = sentence.substring(i,i+num)
+       // println("word is ${word}")
+        if(!temp_times.containsKey(word)) return false
+        var time = temp_times[word]
+        if(time==1)
+            temp_times.remove(word)
+        else
+            temp_times[word] =time!!-1
+        i=i+num
+    }
+    return true
 }
