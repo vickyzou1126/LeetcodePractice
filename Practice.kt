@@ -1,7 +1,7 @@
 import kotlin.math.abs
 
 fun main(args: Array<String>) {
-    var res = findSubstring("barfoothefoobarman", arrayOf("foo","bar"))
+    var res = combinationSum(intArrayOf(2,3,6,7),7)
     println(res)
 }
 /*
@@ -168,3 +168,40 @@ fun ContainAll(times: HashMap<String,Int>,sentence:String,num:Int):Boolean{
     }
     return true
 }
+
+/*
+Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+
+The same repeated number may be chosen from candidates unlimited number of times.
+ */
+fun combinationSum(candidates: IntArray, target: Int) : List<List<Int>>{
+
+    var result = mutableListOf<List<Int>>()
+    var tempCandidates = candidates.filter {  x->x<=target }
+    for(num in tempCandidates) {
+        var remainder = target % num;
+        var round = target / num
+        if (remainder == 0) {
+            var tempList = mutableListOf<Int>()
+            repeat(round) {
+                tempList.add(num)
+            }
+            result.add(tempList.toList())
+            round -= 1
+        }
+        var restList = tempCandidates.filter { x -> x != num}.toIntArray()
+        for (i in 1..round) {
+            var newTarget=target - i * num
+            var temp = combinationSum(restList, newTarget)
+            for (t in temp.filter { x -> x.sum() == newTarget }) {
+                var tempt = t.toMutableList()
+                repeat(i) {
+                    tempt.add(num)
+                }
+                result.add(tempt.sorted())
+            }
+        }
+    }
+    return result.distinct()
+}
+
