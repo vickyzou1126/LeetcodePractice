@@ -1,7 +1,7 @@
 import kotlin.math.abs
 
 fun main(args: Array<String>) {
-    var res = combinationSum(intArrayOf(2,3,6,7),7)
+    var res = reverse(1534236469.toInt())
     println(res)
 }
 /*
@@ -205,3 +205,14 @@ fun combinationSum(candidates: IntArray, target: Int) : List<List<Int>>{
     return result.distinct()
 }
 
+/*Given a 32-bit signed integer, reverse digits of an integer.*/
+fun reverse(x: Int): Int {
+    var str = Math.abs(x).toString().reversed()
+    var num=str.toIntOrNull()
+    if(num==null) return 0
+
+    if(x<0){
+        return (-1)*num
+    }
+    return num
+}
