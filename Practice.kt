@@ -1,4 +1,6 @@
+import org.w3c.dom.NodeList
 import kotlin.math.abs
+import kotlin.math.min
 
 /*
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
@@ -273,7 +275,99 @@ fun GetRomanNumber(c:Char):Int{
     }
 }
 
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+
+}
+fun ListNode.GetAllValues(): List<Int> {
+    var list= mutableListOf<Int>()
+    list.add(this.`val`)
+    var temp = this
+    while(temp.next!=null){
+        list.add(temp.next!!.`val`)
+        temp = temp.next!!
+    }
+    return list.toList()
+}
+//https://leetcode.com/problems/merge-two-sorted-lists/
+fun mergeTwoLists(l1: ListNode?, l2: ListNode?): ListNode? {
+    if(l1==null) return l2
+    if(l2==null) return l1
+
+    var temp = l1!!
+    var node =  ListNode(l1.`val`)
+
+    var greaterNode:ListNode?=l2  
+    if(l1.`val`>l2.`val`){
+        temp = l2!!
+        node = ListNode(l2.`val`)
+        greaterNode=l1
+    }
+       var tempNode = node
+        while(temp.next != null){
+            if(greaterNode!=null){
+                if(greaterNode!!.`val`<=temp.next!!.`val`){
+                    tempNode.next = ListNode(greaterNode!!.`val`)
+                    greaterNode = greaterNode.next
+                }else{
+                    tempNode.next = ListNode(temp.next!!.`val`)
+                    temp = temp.next!!
+                }
+                tempNode = tempNode.next!!
+            }else{
+                tempNode.next = temp.next
+                break
+            }
+        }
+    if(greaterNode!=null){
+        tempNode.next=greaterNode
+    }
+
+
+    /*
+    if(l1==null) return l2
+    if(l2==null) return l1
+    var l1nodes = l1!!.GetAllValues().toMutableList()
+    var l2nodes=l2!!.GetAllValues()
+
+    l2nodes.forEach { x->l1nodes.add(x) }
+
+    l1nodes = l1nodes.toList().sorted().toMutableList()
+    var node=ListNode(l1nodes.get(0))
+    l1nodes.removeAt(0)
+    var temp=node
+    while (l1nodes.size>0){
+        temp.next=ListNode(l1nodes[0])
+        temp = temp.next!!
+        l1nodes.removeAt(0)
+    }*/
+    return node
+}
+
+
 fun main(args: Array<String>) {
-    var res = romanToInt("D")
-    println(res)
+    var l1nodes = listOf(1,2,4)
+    var node=ListNode(l1nodes[0])
+    l1nodes=l1nodes.takeLast(l1nodes.size-1)
+    var temp=node
+    while (l1nodes.size>0){
+        temp.next=ListNode(l1nodes[0])
+        temp = temp.next!!
+        l1nodes=l1nodes.takeLast(l1nodes.size-1)
+    }
+
+    var l2nodes= listOf(1,3,4)
+    var node2=ListNode(l2nodes[0])
+    l2nodes=l2nodes.takeLast(l2nodes.size-1)
+    temp=node2
+    while (l2nodes.size>0){
+        temp.next=ListNode(l2nodes[0])
+        temp = temp.next!!
+        l2nodes=l2nodes.takeLast(l2nodes.size-1)
+    }
+
+    var res = mergeTwoLists(node,node2)
+println(res!!.GetAllValues())
+
+
 }
