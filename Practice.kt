@@ -1,9 +1,5 @@
 import kotlin.math.abs
 
-fun main(args: Array<String>) {
-    var res = reverse(1534236469.toInt())
-    println(res)
-}
 /*
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
  */
@@ -215,4 +211,69 @@ fun reverse(x: Int): Int {
         return (-1)*num
     }
     return num
+}
+
+//https://leetcode.com/problems/roman-to-integer/
+fun romanToInt(s: String): Int {
+    if (s.length==1) return GetNumber(s)
+    var numbers="IVXLCDM"
+    var str=s[0].toString()
+    var res=0
+    var dic = mutableMapOf<String, Int>()
+    for(i in 1..s.length-1){
+        if(numbers.indexOf(s[i])>=numbers.indexOf(s[i-1])){
+            str+=s[i]
+        }else{
+            if(!dic.containsKey(str)){
+                dic.put(str,GetNumber(str.reversed()))
+            }
+            res+=dic.get(str)!!
+            str=s[i].toString()
+        }
+        if(i==s.length-1){
+            if(!dic.containsKey(str)){
+                dic.put(str,GetNumber(str.reversed()))
+            }
+            res+=dic.get(str)!!
+        }
+    }
+
+    return res
+}
+
+fun GetNumber(str:String):Int{
+    var sum =  GetRomanNumber(str[0])
+
+    if(str.length>1){
+        var pre = str[0]
+        var temp = str.subSequence(1,str.length)
+        while (temp.length>0){
+            var num = GetRomanNumber(temp[0])
+            if(pre == temp[0]){
+                sum+=num
+            }else{
+                sum-=num
+            }
+            if(temp.length==1) break
+            pre=temp[0]
+            temp=temp.subSequence(1,temp.length)
+        }
+    }
+    return sum
+}
+fun GetRomanNumber(c:Char):Int{
+    when (c){
+        'I' -> return 1
+        'V' -> return 5
+        'X' -> return 10
+        'L' -> return 50
+        'C' -> return 100
+        'D' -> return 500
+        else ->  return 1000
+    }
+}
+
+fun main(args: Array<String>) {
+    var res = romanToInt("D")
+    println(res)
 }
