@@ -16,3 +16,8 @@ fun numberOfSteps (num: Int): Int {
     }
     return step
 }
+
+//Jewels and Stones
+fun numJewelsInStones(J: String, S: String): Int {
+    return S.filter { x-> J.contains(x) }.length
+}
