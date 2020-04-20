@@ -101,8 +101,8 @@ fun findNumbers(nums: IntArray): Int {
         }
     }
     return res
-}
 
+}
 
 fun main(args: Array<String>) {
     println(findNumbers(intArrayOf(12,345,2,6,7896)))
