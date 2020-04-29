@@ -1,5 +1,5 @@
 import kotlin.math.abs
-
+import kotlin.math.pow
 
 
 fun numberOfSteps (num: Int): Int {
@@ -150,8 +150,39 @@ fun subtractProductAndSum(n: Int): Int {
     }
     return pd-sd
 }
+
+//https://leetcode.com/problems/create-target-array-in-the-given-order/
+fun createTargetArray(nums: IntArray, index: IntArray): IntArray {
+    var res = mutableListOf<Int>()
+    if (nums.size==0) return res.toIntArray()
+    for(i in 0..nums.size-1){
+        res.add(index[i],nums[i])
+    }
+    return res.toIntArray()
+}
+
+//https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/
+fun getDecimalValue(head: ListNode?): Int {
+
+    if (head==null) return 0
+    var res = mutableListOf<Int>()
+    var value=0.0
+    res.add(head.`val`)
+    var node = head.next
+    while (node!=null){
+        res.add(0,node.`val`)
+        node=node.next
+    }
+    if (res.size==0) return 0
+    for (i in 0..res.size-1){
+        if(res[i]==1){
+            value+=Math.pow(2.0, (i).toDouble())
+        }
+    }
+    return value.toInt()
+}
 fun main(args: Array<String>) {
-    println(subtractProductAndSum(234))
+   
 
 }
 
