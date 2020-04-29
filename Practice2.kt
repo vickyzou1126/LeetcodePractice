@@ -137,8 +137,21 @@ fun decompressRLElist(nums: IntArray): IntArray {
     }
     return res.toIntArray()
 }
+
+//https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/
+fun subtractProductAndSum(n: Int): Int {
+    var str= n.toString()
+    var pd=1;
+    var sd=0;
+    for (v in str){
+        var value = v.toString().toInt()
+        pd*=value
+        sd+=value
+    }
+    return pd-sd
+}
 fun main(args: Array<String>) {
-    println(smallerNumbersThanCurrent(intArrayOf(8,1,2,2,3)))
+    println(subtractProductAndSum(234))
 
 }
 
