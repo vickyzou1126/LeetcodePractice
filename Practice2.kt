@@ -104,8 +104,27 @@ fun findNumbers(nums: IntArray): Int {
 
 }
 
+
+//https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/
+fun smallerNumbersThanCurrent(nums: IntArray): IntArray {
+   /* var res= mutableListOf<Int>()
+    if (nums.size==0) return res.toIntArray()
+    var newNums=nums.toList().sorted()
+    var map = hashMapOf<Int,Int>()
+
+    for (i in 0..nums.size-1){
+        if(!map.containsKey(nums[i])){
+            map.put(nums[i],newNums.indexOf(nums[i]))
+        }
+        res.add(map[nums[i]]!!)
+    }
+    return res.toIntArray()*/
+    val newArray = IntArray(nums.size)
+    for (i in 0 until nums.size) { newArray[i] = nums.count { nums[i] > it } }
+    return newArray
+}
 fun main(args: Array<String>) {
-    println(findNumbers(intArrayOf(12,345,2,6,7896)))
+    println(smallerNumbersThanCurrent(intArrayOf(8,1,2,2,3)))
 
 }
 
