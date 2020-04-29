@@ -181,8 +181,27 @@ fun getDecimalValue(head: ListNode?): Int {
     }
     return value.toInt()
 }
+
+fun maximum69Number (num: Int): Int {
+    var str = num.toString()
+    var str2=""
+    for(i in 0..str.length-1){
+        if (str[i]=='6')
+        {
+            str2+="9"
+            if(i!=str.length-1){
+                str2+=str.subSequence(i+1,str.length)
+            }
+            return str2.toInt()
+        }else{
+            str2+=str[i]
+        }
+    }
+    return str2.toInt()
+
+}
 fun main(args: Array<String>) {
-   
+
 
 }
 
