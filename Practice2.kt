@@ -123,6 +123,20 @@ fun smallerNumbersThanCurrent(nums: IntArray): IntArray {
     for (i in 0 until nums.size) { newArray[i] = nums.count { nums[i] > it } }
     return newArray
 }
+
+//https://leetcode.com/problems/decompress-run-length-encoded-list/
+fun decompressRLElist(nums: IntArray): IntArray {
+    var res = mutableListOf<Int>()
+    for(i in 0..(nums.size-1)/2){
+
+        var fre = nums[2*i]
+        var value =nums[2*i+1]
+        repeat(fre){
+            res.add(value)
+        }
+    }
+    return res.toIntArray()
+}
 fun main(args: Array<String>) {
     println(smallerNumbersThanCurrent(intArrayOf(8,1,2,2,3)))
 
