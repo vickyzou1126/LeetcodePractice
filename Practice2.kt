@@ -200,6 +200,20 @@ fun maximum69Number (num: Int): Int {
     return str2.toInt()
 
 }
+
+//https://leetcode.com/problems/sort-array-by-parity/
+fun sortArrayByParity(A: IntArray): IntArray {
+    var res = mutableListOf<Int>()
+
+    for (i in 0..A.size-1){
+        if (A[i]%2==0){
+            res.add(0,A[i])
+        }else{
+            res.add(A[i])
+        }
+    }
+    return res.toIntArray()
+}
 fun main(args: Array<String>) {
 
 
