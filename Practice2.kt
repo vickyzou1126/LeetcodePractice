@@ -214,6 +214,21 @@ fun sortArrayByParity(A: IntArray): IntArray {
     }
     return res.toIntArray()
 }
+
+//https://leetcode.com/problems/flipping-an-image/
+fun flipAndInvertImage(A: Array<IntArray>): Array<IntArray> {
+    var converts = hashMapOf<IntArray,IntArray>()
+    var res = mutableListOf<IntArray>()
+    for (i in 0..A.size-1){
+        if(!converts.containsKey(A[i])){
+            var temp = A[i].reversedArray().map { abs(1-it) }.toIntArray()
+            converts.put(A[i],temp)
+        }
+        res.add(converts.get(A[i])!!)
+    }
+    return res.toTypedArray()
+}
+
 fun main(args: Array<String>) {
 
 
